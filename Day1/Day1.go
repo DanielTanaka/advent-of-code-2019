@@ -27,13 +27,24 @@ func calculateResultFromFile(fileName string) int {
 		if conversionError != nil {
 			log.Fatal(conversionError)
 		}
-		totalFuel = totalFuel + calculateFuel(currentValue)
+		totalFuel = totalFuel + calculateTotalFuel(currentValue)
 	}
 
 	file.Close()
 	return totalFuel
 }
 
-func calculateFuel(mass int) int {
+func calculateTotalFuel(mass int) int {
+	requiredFuel := calculateRequiredFuelForMass(mass)
+	furtherFuel := calculateRequiredFuelForMass(requiredFuel)
+
+	for furtherFuel > 0 {
+		requiredFuel = requiredFuel + furtherFuel
+		furtherFuel = calculateRequiredFuelForMass(furtherFuel)
+	}
+	return requiredFuel
+}
+
+func calculateRequiredFuelForMass(mass int) int {
 	return int(mass/3) - 2
 }
