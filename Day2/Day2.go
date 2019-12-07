@@ -28,22 +28,27 @@ func readIntcodeFromFile(fileName string) {
 
 	step := 4
 	for i := 0; i < len(values); i = i + step {
-		if values[i] == 99 {
+		haltOpcode := 99
+		if values[i] == haltOpcode {
 			break
 		}
 
 		firstPosition := values[i+1]
 		secondPosition := values[i+2]
 		storagePosition := values[i+3]
+
+		sumOpcode := 1
+		multiplicationOpcode := 2
+
 		var result int
-		if values[i] == 1 {
+		if values[i] == sumOpcode {
 			result = values[firstPosition] + values[secondPosition]
-		} else if values[i] == 2 {
+		} else if values[i] == multiplicationOpcode {
 			result = values[firstPosition] * values[secondPosition]
 		}
 		values[storagePosition] = result
 	}
-
+	file.Close()
 	fmt.Println(values)
 }
 
