@@ -20,7 +20,7 @@ func applyFormula(noun, verb int) int {
 	return 100*noun + verb
 }
 
-func findNounVerb(expectedOutput int) (int, int, int) { //brute-force bc I couldn't really think of a better way :(
+func findNounVerb(expectedOutput int) (int, int, int) {
 	noun, verb := 0, 0
 	maximumValue := 99
 	fileName := "input.txt"
